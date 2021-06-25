@@ -14,7 +14,7 @@ public interface OrderProductService {
 
     OrderProduct updateOrderProduct(OrderProduct orderProduct);
 
-    OrderProduct deleteOrderProductById(int opId);
+    boolean deleteOrderProductById(int opId);
 
     boolean updateQuantity(int opId, int quantity);
 
