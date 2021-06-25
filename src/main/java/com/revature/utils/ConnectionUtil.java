@@ -7,7 +7,14 @@ import java.sql.SQLException;
 public class ConnectionUtil {
     public static Connection createConnection(){
         try{
-            Connection connection = DriverManager.getConnection("");
+            String host = System.getenv("HOST");
+            String port = System.getenv("PORT");
+            String user = System.getenv("DB_USER");
+            String password = System.getenv("DB_PASSWORD");
+            String name = System.getenv("DB_NAME");
+            System.out.println("jdbc:"+host+":"+port+"/"+name+"?user="+user+"&password="+password);
+            Connection connection = DriverManager.getConnection("jdbc:"+host+":"+port+"/"+name+"?user="+user+"&password="+password);
+
             return connection;
         }
         catch(SQLException sqlException){
