@@ -1,5 +1,11 @@
 package com.revature.app;
 
+import com.revature.controllers.OrderController;
+import com.revature.daos.OrderDAO;
+import com.revature.daos.OrderDAOPostgres;
+import com.revature.entities.Order;
+import com.revature.services.OrderService;
+import com.revature.services.OrderServiceImpl;
 import io.javalin.Javalin;
 
 public class App {
@@ -9,6 +15,20 @@ public class App {
             config.enableCorsForAllOrigins();
             config.enableDevLogging();
         });
+
+        OrderDAO orderDAO = new OrderDAOPostgres();
+        OrderService orderService = new OrderServiceImpl(orderDAO);
+        OrderController orderController = new OrderController(orderService);
+
+        app.post("/orders", orderController.placeOrder);
+
+        app.get("/orders", orderController.getAllOrders);
+
+        app.get("/orders/:orderId", orderController.getOrderById);
+
+        app.put("/orders/:orderId", orderController.updateOrder);
+
+        app.delete("/orders/:orderId", orderController.deleteOrder);
 
         app.start();
     }
