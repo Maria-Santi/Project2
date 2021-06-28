@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectionUtil {
+
     public static Connection createConnection(){
         try{
             String host = System.getenv("HOST");
@@ -12,7 +13,6 @@ public class ConnectionUtil {
             String user = System.getenv("DB_USER");
             String password = System.getenv("DB_PASSWORD");
             String name = System.getenv("DB_NAME");
-            System.out.println("jdbc:"+host+":"+port+"/"+name+"?user="+user+"&password="+password);
             Connection connection = DriverManager.getConnection("jdbc:"+host+":"+port+"/"+name+"?user="+user+"&password="+password);
 
             return connection;
