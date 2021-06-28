@@ -14,7 +14,8 @@ public interface ProductService {
 
     List<Product> retrieveProductsByMood(String mood);
 
-    List<Product> getAllProducts();
+    List<Product> retrieveAllProducts();
 
     Product updateProduct(Product product);
+
 }
