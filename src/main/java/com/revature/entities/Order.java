@@ -2,17 +2,17 @@ package com.revature.entities;
 
 public class Order {
     private int orderId;
-    private int userId;
     private long orderDate;
     private String status;
+    private int userId;
 
     public Order(){}
 
-    public Order(int orderId, int userId, long orderDate, String status) {
+    public Order(int orderId, long orderDate, String status, int userId){
         this.orderId = orderId;
-        this.userId = userId;
         this.orderDate = orderDate;
         this.status = status;
+        this.userId = userId;
     }
 
     public int getOrderId() {
@@ -51,9 +51,9 @@ public class Order {
     public String toString() {
         return "Order{" +
                 "orderId=" + orderId +
-                ", userId=" + userId +
                 ", orderDate=" + orderDate +
                 ", status='" + status + '\'' +
+                ", userId=" + userId +
                 '}';
     }
 }
