@@ -8,7 +8,8 @@ public class Product {
     private String mood;
     private String category;
 
-    public Product(){}
+    public Product(){
+    }
 
     public Product(int productId, String name, String description, float price, String mood, String category) {
         this.productId = productId;
