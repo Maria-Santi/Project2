@@ -1,6 +1,7 @@
 package com.revature.app;
 
 import com.revature.controllers.OrderController;
+import com.revature.controllers.OrderProductController;
 import com.revature.controllers.ProductController;
 import com.revature.daos.*;
 import com.revature.entities.Order;
@@ -26,6 +27,7 @@ public class App {
 
         OrderProductDAO opDAO = new OrderProductDaoPostgres();
         OrderProductService opService = new OrderProductServiceImpl(opDAO);
+        OrderProductController opController = new OrderProductController(opService);
 
         app.get("/products", productController.getAllProducts);
 
@@ -35,6 +37,17 @@ public class App {
 
         app.put("/products/:id", productController.updateProduct);
 
+        app.get("/orderProducts/:id", opController.getOrderProductById);
+
+        app.get("/orderProducts/orders/:id",opController.getAllOrderProductsByOrderId);
+
+        app.post("/orderProducts", opController.createOrderProduct);
+
+        app.put("/orderProducts/:id", opController.updateOrderProduct);
+
+        app.put("/orderProducts/:id/quantity/:quantity", opController.updateQuantity);
+
+        app.delete("/orderProducts/:id", opController.deleteOrderProductById);
 
         app.post("/orders", orderController.placeOrder);
 
