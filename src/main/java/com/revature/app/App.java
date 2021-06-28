@@ -2,16 +2,11 @@ package com.revature.app;
 
 import com.revature.controllers.OrderController;
 import com.revature.controllers.ProductController;
-import com.revature.daos.OrderDAO;
-import com.revature.daos.OrderDAOPostgres;
-import com.revature.daos.ProductDAO;
-import com.revature.daos.ProductDAOPostgres;
+import com.revature.daos.*;
 import com.revature.entities.Order;
-import com.revature.services.OrderService;
-import com.revature.services.OrderServiceImpl;
-import com.revature.services.ProductService;
-import com.revature.services.ProductServiceImpl;
+import com.revature.services.*;
 import io.javalin.Javalin;
+
 
 public class App {
 
@@ -28,6 +23,9 @@ public class App {
         ProductDAO productDAO = new ProductDAOPostgres();
         ProductService productService = new ProductServiceImpl(productDAO);
         ProductController productController = new ProductController(productService);
+
+        OrderProductDAO opDAO = new OrderProductDaoPostgres();
+        OrderProductService opService = new OrderProductServiceImpl(opDAO);
 
         app.get("/products", productController.getAllProducts);
 

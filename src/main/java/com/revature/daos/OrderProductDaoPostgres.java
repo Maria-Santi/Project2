@@ -1,6 +1,7 @@
 package com.revature.daos;
 
 import com.revature.entities.OrderProduct;
+import com.revature.exceptions.ResourceNotFound;
 import com.revature.utils.ConnectionUtil;
 
 import java.sql.*;
@@ -31,7 +32,7 @@ public class OrderProductDaoPostgres implements OrderProductDAO {
     }
 
     @Override
-    public OrderProduct getOrderProductById(int opId) {
+    public OrderProduct getOrderProductById(int opId) throws ResourceNotFound {
         try (Connection connection = ConnectionUtil.createConnection()) {
             String sql = "select * from order_product where o_p_id = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -49,12 +50,12 @@ public class OrderProductDaoPostgres implements OrderProductDAO {
             return op;
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
-            return null;
+            throw new ResourceNotFound("There is no OrderProduct by the id" + opId);
         }
     }
 
     @Override
-    public List<OrderProduct> getOrderProductsByOrderId(int orderId) {
+    public List<OrderProduct> getOrderProductsByOrderId(int orderId) throws ResourceNotFound {
         try (Connection connection = ConnectionUtil.createConnection()) {
             String sql = "select * from order_product where o_id = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -74,12 +75,12 @@ public class OrderProductDaoPostgres implements OrderProductDAO {
             return ops;
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
-            return null;
+            throw new ResourceNotFound("There are no OrderProducts for order id " + orderId);
         }
     }
 
     @Override
-    public OrderProduct updateOrderProduct(OrderProduct orderProduct) {
+    public OrderProduct updateOrderProduct(OrderProduct orderProduct) throws ResourceNotFound {
         try (Connection connection = ConnectionUtil.createConnection()) {
             String sql = "update order_product set o_id=?, p_id=?, quantity=? where o_p_id=?";
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -92,12 +93,12 @@ public class OrderProductDaoPostgres implements OrderProductDAO {
             return orderProduct;
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
-            return null;
+            throw new ResourceNotFound("There is no OrderProduct by the id" + orderProduct.getOpId());
         }
     }
 
     @Override
-    public boolean deleteOrderProductById(int opId) {
+    public boolean deleteOrderProductById(int opId) throws ResourceNotFound {
         try (Connection connection = ConnectionUtil.createConnection()) {
             String sql = "delete from order_product where o_p_id=?";
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -106,7 +107,7 @@ public class OrderProductDaoPostgres implements OrderProductDAO {
             return true;
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
-            return false;
+            throw new ResourceNotFound("There is no OrderProduct by the id" + opId);
         }
     }
 }
