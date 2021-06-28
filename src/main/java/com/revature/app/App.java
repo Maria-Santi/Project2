@@ -1,10 +1,11 @@
 package com.revature.app;
 
-import com.revature.controllers.ProductController;
-import com.revature.daos.ProductDAO;
-import com.revature.daos.ProductDAOPostgres;
-import com.revature.services.ProductService;
-import com.revature.services.ProductServiceImpl;
+import com.revature.controllers.OrderController;
+import com.revature.daos.OrderDAO;
+import com.revature.daos.OrderDAOPostgres;
+import com.revature.entities.Order;
+import com.revature.services.OrderService;
+import com.revature.services.OrderServiceImpl;
 import io.javalin.Javalin;
 
 public class App {
@@ -15,17 +16,19 @@ public class App {
             config.enableDevLogging();
         });
 
-        ProductDAO productDAO = new ProductDAOPostgres();
-        ProductService productService = new ProductServiceImpl(productDAO);
-        ProductController productController = new ProductController(productService);
+        OrderDAO orderDAO = new OrderDAOPostgres();
+        OrderService orderService = new OrderServiceImpl(orderDAO);
+        OrderController orderController = new OrderController(orderService);
 
-        app.get("/products", productController.getAllProducts);
+        app.post("/orders", orderController.placeOrder);
 
-        app.get("/products/:id", productController.getProductById);
+        app.get("/orders", orderController.getAllOrders);
 
-        app.get("/products/name/:name", productController.getProductByName);
+        app.get("/orders/:orderId", orderController.getOrderById);
 
-        app.put("/products/:id", productController.updateProduct);
+        app.put("/orders/:orderId", orderController.updateOrder);
+
+        app.delete("/orders/:orderId", orderController.deleteOrder);
 
         app.start();
     }
