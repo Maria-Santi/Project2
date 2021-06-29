@@ -1,13 +1,14 @@
 package com.revature.services;
 
 import com.revature.daos.UserDAO;
+import com.revature.daos.UserDaoPostgres;
 import com.revature.entities.User;
 
 import java.util.List;
 
 public class UserServiceImpl implements UserService{
 
-    private UserDAO userDAO = null; // dependencies are usually private
+    private UserDAO userDAO = new UserDaoPostgres();
 
     public UserServiceImpl(UserDAO userDAO){
         this.userDAO = userDAO; // dependency injection
@@ -31,5 +32,9 @@ public class UserServiceImpl implements UserService{
     @Override
     public User updateUser(User user) {
         return this.userDAO.updateUser(user);
+    }
+
+    @Override
+    public User loginUser(String username, String password) { return this.userDAO.loginUser(username, password);
     }
 }

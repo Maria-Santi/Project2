@@ -2,15 +2,10 @@ package com.revature.app;
 
 import com.revature.controllers.OrderController;
 import com.revature.controllers.ProductController;
-import com.revature.daos.OrderDAO;
-import com.revature.daos.OrderDAOPostgres;
-import com.revature.daos.ProductDAO;
-import com.revature.daos.ProductDAOPostgres;
+import com.revature.controllers.UserController;
+import com.revature.daos.*;
 import com.revature.entities.Order;
-import com.revature.services.OrderService;
-import com.revature.services.OrderServiceImpl;
-import com.revature.services.ProductService;
-import com.revature.services.ProductServiceImpl;
+import com.revature.services.*;
 import io.javalin.Javalin;
 
 public class App {
@@ -28,6 +23,10 @@ public class App {
         ProductDAO productDAO = new ProductDAOPostgres();
         ProductService productService = new ProductServiceImpl(productDAO);
         ProductController productController = new ProductController(productService);
+
+        UserDAO userDAO = new UserDaoPostgres();
+        UserService userService = new UserServiceImpl(userDAO);
+        UserController userController = new UserController(userService);
 
         app.get("/products", productController.getAllProducts);
 
@@ -47,6 +46,17 @@ public class App {
         app.put("/orders/:orderId", orderController.updateOrder);
 
         app.delete("/orders/:orderId", orderController.deleteOrder);
+
+
+        app.get("/users", userController.getAllUsers);
+
+        app.get("/users/:userId", userController.getUserById);
+
+        app.get("/users", userController.addUser);
+
+        app.put("/users", userController.updateUser);
+
+        app.put("/users/:username", userController.loginUser);
 
         app.start();
     }

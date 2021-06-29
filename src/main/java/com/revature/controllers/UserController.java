@@ -65,4 +65,13 @@ public class UserController {
         ctx.status(201);
     };
 
+    public Handler loginUser = ctx -> {
+        Gson gson = new Gson();
+        User user = gson.fromJson(ctx.body(),User.class);
+        user = this.userService.loginUser(user.getUsername(), user.getPassword());
+        String userJSON = gson.toJson(user);
+        ctx.result(userJSON);
+        ctx.status(201);
+    };
+
 }
