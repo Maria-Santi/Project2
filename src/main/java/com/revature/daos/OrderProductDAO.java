@@ -13,5 +13,5 @@ public interface OrderProductDAO {
 
     OrderProduct updateOrderProduct(OrderProduct orderProduct);
 
-    OrderProduct deleteOrderProductById(int opId);
+    boolean deleteOrderProductById(int opId);
 }
