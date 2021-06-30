@@ -71,9 +71,7 @@ public class App {
 
         app.post("/users", userController.addUser);
 
-        app.put("/users", userController.updateUser);
-
-      //  app.put("/users/:username", userController.loginUser);
+        app.put("/users/:userId", userController.updateUser);
 
         app.start();
     }
