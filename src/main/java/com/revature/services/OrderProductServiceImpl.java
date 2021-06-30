@@ -1,5 +1,6 @@
 package com.revature.services;
 
+import com.revature.DTOs.OrderProductInfo;
 import com.revature.daos.OrderProductDAO;
 import com.revature.entities.OrderProduct;
 
@@ -26,6 +27,11 @@ public class OrderProductServiceImpl implements OrderProductService {
     @Override
     public List<OrderProduct> retrieveOrderProductsByOrderId(int orderId) {
         return this.opDAO.getOrderProductsByOrderId(orderId);
+    }
+
+    @Override
+    public List<OrderProductInfo> retrieveOrderInfo(int orderId) {
+        return this.opDAO.getOrderInfo(orderId);
     }
 
     @Override
