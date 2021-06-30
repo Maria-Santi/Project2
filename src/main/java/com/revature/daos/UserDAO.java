@@ -13,6 +13,4 @@ public interface UserDAO {
 
     User updateUser(User user);
 
-    User loginUser(String username, String password);
-
 }
