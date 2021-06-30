@@ -34,7 +34,4 @@ public class UserServiceImpl implements UserService{
         return this.userDAO.updateUser(user);
     }
 
-    @Override
-    public User loginUser(String username, String password) { return this.userDAO.loginUser(username, password);
-    }
 }

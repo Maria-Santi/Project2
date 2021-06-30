@@ -16,14 +16,8 @@ public class UserController {
     }
 
     public Handler getAllUsers = ctx -> {
-        String name = ctx.queryParam("namecontains");
         List<User> users;
-        if(name != null){
-            users = this.userService.getAllUsers() ;
-        }else{
-            int userId = 0;
-            users = (List<User>) this.userService.retrieveUserById(userId);
-        }
+        users = this.userService.getAllUsers();
         Gson gson = new Gson();
         String usersJSON = gson.toJson(users);
         ctx.result(usersJSON);
@@ -44,34 +38,32 @@ public class UserController {
             ctx.result(resourceNotFound.getMessage());
             ctx.status(404);
         }
-
     };
 
     public Handler addUser = ctx -> {
         Gson gson = new Gson();
         User user = gson.fromJson(ctx.body(),User.class);
-        user = this.userService.addUser(user);
+        this.userService.addUser(user);
         String userJSON = gson.toJson(user);
         ctx.result(userJSON);
         ctx.status(201);
     };
 
     public Handler updateUser = ctx -> {
-        Gson gson = new Gson();
-        User user = gson.fromJson(ctx.body(),User.class);
-        user = this.userService.updateUser(user);
-        String userJSON = gson.toJson(user);
-        ctx.result(userJSON);
-        ctx.status(201);
-    };
-
-    public Handler loginUser = ctx -> {
-        Gson gson = new Gson();
-        User user = gson.fromJson(ctx.body(),User.class);
-        user = this.userService.loginUser(user.getUsername(), user.getPassword());
-        String userJSON = gson.toJson(user);
-        ctx.result(userJSON);
-        ctx.status(201);
+        try {
+            int id = Integer.parseInt(ctx.pathParam("userId"));
+            User user = this.userService.retrieveUserById(id);
+            Gson gson = new Gson();
+            User bodyUser = gson.fromJson(ctx.body(), User.class);
+            bodyUser.setUserId(id);
+            this.userService.updateUser(bodyUser);
+            String userJSON = gson.toJson(bodyUser);
+            ctx.result(userJSON);
+            ctx.status(205);
+        }catch (ResourceNotFound resourceNotFound){
+            ctx.result(resourceNotFound.getMessage());
+            ctx.status(404);
+        }
     };
 
 }
