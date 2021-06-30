@@ -46,6 +46,8 @@ public class App {
 
         app.get("/orderProducts/orders/:id",opController.getAllOrderProductsByOrderId);
 
+        app.get("/orderProducts/orders/info/:id", opController.getAllOrderInfo);
+
         app.post("/orderProducts", opController.createOrderProduct);
 
         app.put("/orderProducts/:id", opController.updateOrderProduct);

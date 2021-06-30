@@ -1,5 +1,6 @@
 package com.revature.daotests;
 
+import com.revature.DTOs.OrderProductInfo;
 import com.revature.daos.OrderProductDAO;
 import com.revature.daos.OrderProductDaoPostgres;
 import com.revature.entities.OrderProduct;
@@ -49,6 +50,22 @@ public class OrderProductDAOTests {
         opDAO.createOrderProduct(op3);
         List<OrderProduct> ops = opDAO.getOrderProductsByOrderId(32);
         Assert.assertTrue(ops.size()==2);
+
+        opDAO.deleteOrderProductById(op1.getOpId());
+        opDAO.deleteOrderProductById(op2.getOpId());
+        opDAO.deleteOrderProductById(op3.getOpId());
+    }
+
+    @Test(priority = 6, dependsOnMethods = "getAllOrderProductsByOrderId")
+    void getAllOrderInfo() {
+        OrderProduct op1 = new OrderProduct(0, 32, 2, 50);
+        OrderProduct op2 = new OrderProduct(0, 32, 2, 100);
+        OrderProduct op3 = new OrderProduct(0, 33, 2, 50);
+        opDAO.createOrderProduct(op1);
+        opDAO.createOrderProduct(op2);
+        opDAO.createOrderProduct(op3);
+        List<OrderProductInfo> infos = opDAO.getOrderInfo(32);
+        Assert.assertTrue(infos.size()==2);
 
         opDAO.deleteOrderProductById(op1.getOpId());
         opDAO.deleteOrderProductById(op2.getOpId());

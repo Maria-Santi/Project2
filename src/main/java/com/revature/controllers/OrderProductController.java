@@ -1,6 +1,7 @@
 package com.revature.controllers;
 
 import com.google.gson.Gson;
+import com.revature.DTOs.OrderProductInfo;
 import com.revature.entities.OrderProduct;
 import com.revature.exceptions.ResourceNotFound;
 import com.revature.services.OrderProductService;
@@ -27,6 +28,20 @@ public class OrderProductController {
             ctx.result(e.getMessage());
             ctx.status(404);
         }
+    };
+
+    public Handler getAllOrderInfo = ctx -> {
+      try {
+          int id = Integer.parseInt(ctx.pathParam("id"));
+          List<OrderProductInfo> infos = this.opService.retrieveOrderInfo(id);
+          String infoJSON = gson.toJson(infos);
+          ctx.result(infoJSON);
+          ctx.status(200);
+          ctx.contentType("application/JSON");
+      } catch (ResourceNotFound e) {
+          ctx.result(e.getMessage());
+          ctx.status(404);
+      }
     };
 
     public Handler getOrderProductById = ctx -> {

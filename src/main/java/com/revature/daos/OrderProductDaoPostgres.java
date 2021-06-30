@@ -1,5 +1,6 @@
 package com.revature.daos;
 
+import com.revature.DTOs.OrderProductInfo;
 import com.revature.entities.OrderProduct;
 import com.revature.exceptions.ResourceNotFound;
 import com.revature.utils.ConnectionUtil;
@@ -108,6 +109,33 @@ public class OrderProductDaoPostgres implements OrderProductDAO {
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
             throw new ResourceNotFound("There is no OrderProduct by the id" + opId);
+        }
+    }
+
+    @Override
+    public List<OrderProductInfo> getOrderInfo(int orderId) {
+        try (Connection connection = ConnectionUtil.createConnection()) {
+            String sql = "select o_p_id, o_id, p_id, quantity, product_name, price from order_product inner join product on p_id = product_id where o_id = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, orderId);
+
+            ResultSet rs = ps.executeQuery();
+            List<OrderProductInfo> infos = new ArrayList<>();
+            while (rs.next()) {
+                OrderProductInfo info = new OrderProductInfo();
+                info.setOpId(rs.getInt("o_p_id"));
+                info.setoId(rs.getInt("o_id"));
+                info.setpId(rs.getInt("p_id"));
+                info.setQuantity(rs.getInt("quantity"));
+                info.setName(rs.getString("product_name"));
+                info.setPrice(rs.getFloat("price"));
+                infos.add(info);
+            }
+
+            return infos;
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+            throw new ResourceNotFound("There are no OrderProducts for order id " + orderId);
         }
     }
 }

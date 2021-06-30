@@ -1,5 +1,6 @@
 package com.revature.daos;
 
+import com.revature.DTOs.OrderProductInfo;
 import com.revature.entities.OrderProduct;
 
 import java.util.List;
@@ -14,4 +15,6 @@ public interface OrderProductDAO {
     OrderProduct updateOrderProduct(OrderProduct orderProduct);
 
     boolean deleteOrderProductById(int opId);
+
+    List<OrderProductInfo> getOrderInfo(int orderId);
 }
