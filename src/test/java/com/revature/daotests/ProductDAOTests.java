@@ -34,15 +34,4 @@ public class ProductDAOTests {
         Assert.assertTrue(products.size()>=3);
     }
 
-    @Test
-    void updateBook(){
-        testProduct.setProductId(1);
-        testProduct.setPrice(4.50F);
-        productDAO.updateProduct(testProduct);
-        Product product = productDAO.getProductById(testProduct.getProductId());
-        Assert.assertEquals(product.getProductId(), testProduct.getProductId());
-
-    }
-
-
 }

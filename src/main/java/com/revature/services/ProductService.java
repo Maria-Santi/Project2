@@ -16,6 +16,4 @@ public interface ProductService {
 
     List<Product> retrieveAllProducts();
 
-    Product updateProduct(Product product);
-
 }

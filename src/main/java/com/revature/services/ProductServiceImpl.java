@@ -59,8 +59,4 @@ public class ProductServiceImpl implements ProductService{
         return this.productDAO.getAllProducts();
     }
 
-    @Override
-    public Product updateProduct(Product product) {
-        return this.productDAO.updateProduct(product);
-    }
 }

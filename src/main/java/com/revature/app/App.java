@@ -39,9 +39,7 @@ public class App {
         app.get("/products/:id", productController.getProductById);
 
         app.get("/products/name/:name", productController.getProductByName);
-
-        app.put("/products/:id", productController.updateProduct);
-
+        
         app.get("/orderProducts/:id", opController.getOrderProductById);
 
         app.get("/orderProducts/orders/:id",opController.getAllOrderProductsByOrderId);

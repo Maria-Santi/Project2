@@ -86,24 +86,4 @@ public class ProductDAOPostgres implements ProductDAO{
         }
     }
 
-    @Override
-    public Product updateProduct(Product product) {
-        try(Connection connection = ConnectionUtil.createConnection()) {
-            String sql = "update product set price = ? where product_id = ?";
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setString(1, product.getName());
-            ps.setString(2, product.getDescription());
-            ps.setFloat(3, product.getPrice());
-            ps.setString(4, product.getMood());
-            ps.setString(5, product.getCategory());
-            ps.setInt(6, product.getProductId());
-
-            ps.executeUpdate();
-            return product;
-
-        } catch (SQLException sqlException) {
-            sqlException.printStackTrace();
-            return null;
-        }
-    }
 }

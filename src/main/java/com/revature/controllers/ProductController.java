@@ -58,16 +58,5 @@ public class ProductController {
     };
 
 
-    public Handler updateProduct = ctx -> {
-        int id = Integer.parseInt(ctx.pathParam("id"));
-        Product product = gson.fromJson(ctx.body(), Product.class);
-        product.setProductId(id);
-        this.productService.updateProduct(product);
-        String productJSON = gson.toJson(product);
-        ctx.result(productJSON);
-        ctx.status(200);
-        ctx.contentType("application/json");
-    };
-
 
 }

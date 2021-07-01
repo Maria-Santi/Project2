@@ -11,6 +11,4 @@ public interface ProductDAO {
     Product getProductById(int productId);
 
     Product getProductByName(String name);
-
-    Product updateProduct(Product product);
 }
