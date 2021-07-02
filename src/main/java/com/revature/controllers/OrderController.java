@@ -50,7 +50,7 @@ public class OrderController {
     public Handler updateOrder = ctx -> {
       try{
           int id = Integer.parseInt(ctx.pathParam("orderId"));
-          Order order = this.orderService.retrieveOrderById(id);
+          this.orderService.retrieveOrderById(id);
           Gson gson = new Gson();
           Order bodyOrder = gson.fromJson(ctx.body(), Order.class);
           bodyOrder.setOrderId(id);
@@ -68,7 +68,7 @@ public class OrderController {
     public Handler deleteOrder = ctx -> {
         try{
             int id = Integer.parseInt(ctx.pathParam("orderId"));
-            Order order = this.orderService.retrieveOrderById(id);
+            this.orderService.retrieveOrderById(id);
 
             this.orderService.deleteOrder(id);
             ctx.result("Successfully deleted");

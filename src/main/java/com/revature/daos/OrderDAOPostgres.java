@@ -13,6 +13,7 @@ public class OrderDAOPostgres implements OrderDAO{
     public Order createOrder(Order order) {
         try(Connection connection = ConnectionUtil.createConnection()){
             String sql = "insert into shop_order (order_date, status, u_id) values (?, ?, ?)";
+            assert connection != null;
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setLong(1, order.getOrderDate());
             ps.setString(2, order.getStatus());
@@ -35,6 +36,7 @@ public class OrderDAOPostgres implements OrderDAO{
     public List<Order> getAllOrders() {
         try(Connection connection = ConnectionUtil.createConnection()){
             String sql = "select * from shop_order";
+            assert connection != null;
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             List<Order> orders = new ArrayList<>();
@@ -60,6 +62,7 @@ public class OrderDAOPostgres implements OrderDAO{
     public Order getOrderById(int orderId) {
         try(Connection connection = ConnectionUtil.createConnection()){
             String sql = "select * from shop_order where order_id=?";
+            assert connection != null;
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, orderId);
 
@@ -82,6 +85,7 @@ public class OrderDAOPostgres implements OrderDAO{
     public Order updateOrder(Order order) {
         try(Connection connection = ConnectionUtil.createConnection()) {
             String sql = "update shop_order set order_date=?, status=?, u_id=? where order_id=?";
+            assert connection != null;
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setLong(1, order.getOrderDate());
             ps.setString(2, order.getStatus());
@@ -101,6 +105,7 @@ public class OrderDAOPostgres implements OrderDAO{
     public boolean deleteOrderById(int orderId) {
         try(Connection connection = ConnectionUtil.createConnection()){
             String sql = "delete from shop_order where order_id = ?";
+            assert connection != null;
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, orderId);
             ps.execute();

@@ -97,7 +97,7 @@ public class OrderProductController {
         try {
             int id = Integer.parseInt(ctx.pathParam("id"));
             int quantity = Integer.parseInt(ctx.pathParam("quantity"));
-            boolean result = this.opService.updateQuantity(id, quantity);
+            this.opService.updateQuantity(id, quantity);
             ctx.result("Quantity Updated successfully");
             ctx.status(200);
         } catch (ResourceNotFound e) {
