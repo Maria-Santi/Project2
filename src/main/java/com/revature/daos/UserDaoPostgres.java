@@ -16,6 +16,7 @@ public class UserDaoPostgres extends Component implements UserDAO {
     public User createUser(User user) {
         try(Connection connection = ConnectionUtil.createConnection()) {
             String sql = "insert into shop_user (first_name, last_name, username, pass, is_employee) values (?,?,?,?,?)";
+            assert connection != null;
             PreparedStatement pst = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             pst.setString(1,user.getFirstName());
             pst.setString(2,user.getLastName());
@@ -40,6 +41,7 @@ public class UserDaoPostgres extends Component implements UserDAO {
     public List<User> getAllUsers() {
         try(Connection connection = ConnectionUtil.createConnection()) {
             String sql = "select * from shop_user";
+            assert connection != null;
             PreparedStatement pst = connection.prepareStatement(sql);
             ResultSet rs = pst.executeQuery();
 
@@ -66,6 +68,7 @@ public class UserDaoPostgres extends Component implements UserDAO {
     public User getUserById(int userId) {
         try(Connection connection = ConnectionUtil.createConnection()) {
             String sql = "select * from shop_user where user_id = ?";
+            assert connection != null;
             PreparedStatement pst = connection.prepareStatement(sql);
             pst.setInt(1, userId);
 
@@ -91,6 +94,7 @@ public class UserDaoPostgres extends Component implements UserDAO {
     public User updateUser(User user) {
         try(Connection connection = ConnectionUtil.createConnection()){
             String sql = "update shop_user set first_name=?, last_name=?, username=?, pass=?, is_employee=? where user_id =?";
+            assert connection != null;
             PreparedStatement pst = connection.prepareStatement(sql);
             pst.setString(1,user.getFirstName());
             pst.setString(2,user.getLastName());

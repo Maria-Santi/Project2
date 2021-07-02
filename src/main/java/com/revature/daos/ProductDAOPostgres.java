@@ -15,6 +15,7 @@ public class ProductDAOPostgres implements ProductDAO{
     public List<Product> getAllProducts() {
         try(Connection connection = ConnectionUtil.createConnection()) {
             String sql = "select * from product";
+            assert connection != null;
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
@@ -40,6 +41,7 @@ public class ProductDAOPostgres implements ProductDAO{
     public Product getProductById(int productId) {
         try(Connection connection = ConnectionUtil.createConnection()) {
             String sql = "select * from product where product_id = ?";
+            assert connection != null;
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, productId);
 
@@ -65,6 +67,7 @@ public class ProductDAOPostgres implements ProductDAO{
     public Product getProductByName(String name) {
         try(Connection connection = ConnectionUtil.createConnection()) {
             String sql = "select * from product where product_name = ?";
+            assert connection != null;
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, name);
 

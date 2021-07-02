@@ -5,7 +5,6 @@ import com.revature.controllers.OrderProductController;
 import com.revature.controllers.ProductController;
 import com.revature.controllers.UserController;
 import com.revature.daos.*;
-import com.revature.entities.Order;
 import com.revature.services.*;
 import io.javalin.Javalin;
 

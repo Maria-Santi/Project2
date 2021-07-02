@@ -52,7 +52,7 @@ public class UserController {
     public Handler updateUser = ctx -> {
         try {
             int id = Integer.parseInt(ctx.pathParam("userId"));
-            User user = this.userService.retrieveUserById(id);
+            this.userService.retrieveUserById(id);
             Gson gson = new Gson();
             User bodyUser = gson.fromJson(ctx.body(), User.class);
             bodyUser.setUserId(id);
